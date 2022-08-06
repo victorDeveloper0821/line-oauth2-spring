@@ -9,9 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/user")
 public class LineLoginController {
-    @GetMapping("/")
+    @GetMapping("/UserInfo")
     public String index(Model model,
                         @RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient,
                         @AuthenticationPrincipal OAuth2User oauth2User) {
@@ -23,7 +23,7 @@ public class LineLoginController {
     }
 
     @RequestMapping(value = "/line/code",method = {RequestMethod.GET,RequestMethod.POST})
-    public String code(@PathVariable("registrationId") String regId){
+    public String code(@RequestParam("code") String regId){
         System.out.println("registrationId = "+regId);
         return "redirectURI";
     }
