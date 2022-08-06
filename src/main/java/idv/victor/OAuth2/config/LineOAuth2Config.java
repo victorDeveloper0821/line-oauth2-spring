@@ -43,7 +43,7 @@ public class LineOAuth2Config {
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_JWT)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
 // by default OAuth2 url /login/oauth2/code/{registrationId}.
-                .redirectUri("{baseUrl}/user/login/code")
+                .redirectUri("{baseUrl}/user/line/code")
                 .scope("profile")
                 .authorizationUri("https://access.line.me/oauth2/v2.1/authorize")
                 .tokenUri("https://api.line.me/oauth2/v2.1/token")
