@@ -21,10 +21,11 @@ public class LineOAuth2Config {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/line/code/**").permitAll()
+                .antMatchers("/login/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .oauth2Login();
+                .oauth2Login()
+                .clientRegistrationRepository(clientRegistrationRepository());
         return http.build();
     }
 
@@ -39,9 +40,10 @@ public class LineOAuth2Config {
         return ClientRegistration.withRegistrationId("line")
                 .clientId(secret.getChannelID())
                 .clientSecret(secret.getChannelSecret())
-                .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_JWT)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .redirectUri("{baseUrl}/login/code")
+// by default OAuth2 url /login/oauth2/code/{registrationId}.
+//                .redirectUri("{baseUrl}/login/code/**")
                 .scope("profile")
                 .authorizationUri("https://access.line.me/oauth2/v2.1/authorize")
                 .tokenUri("https://api.line.me/oauth2/v2.1/token")
